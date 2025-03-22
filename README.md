@@ -8,8 +8,7 @@ Implementa o tipo "Complexo", representando o conjunto dos números complexos, c
 Lê um número "n" da entrada padrão e exibe na saída padrão os n primeiros números da sequência de Fibonacci.
 
 # Listas.hs
-Implementa o tipo "Lista", buscando torná-lo parecido com as listas pré-definidas na linguagem Haskell. As classes instanciadas pelo tipo são: Eq, Show, Functor, Semigroup e Monoid. 
-A fazer: instanciar as classes Applicative e Monad.
+Implementa o tipo "Lista", buscando torná-lo parecido com as listas pré-definidas na linguagem Haskell. As classes instanciadas pelo tipo são: Eq, Show, Functor, Semigroup, Monoid, Applicative e Monad. 
 
 # Testes.hs
 Miscelânea de algumas funções e operadores implementados para fins de teste.

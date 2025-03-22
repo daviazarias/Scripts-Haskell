@@ -10,8 +10,7 @@ instance Eq a => Eq (Lista a) where
     H x xs == H y ys = x == y && xs == ys
     
 (<:>) :: a -> Lista a -> Lista a
-x <:> Empty  = H x Empty
-x <:> H y ys = H x (y <:> ys)
+x <:> xs  = H x xs
 
 (<++>) :: Lista a -> Lista a -> Lista a
 xs     <++> Empty = xs
@@ -42,6 +41,23 @@ instance Semigroup (Lista a) where
 instance Monoid (Lista a) where
     mempty :: Lista a
     mempty = Empty
+
+instance Applicative Lista where
+    pure :: a -> Lista a
+    pure x = H x Empty
+
+    (<*>) :: Lista (a -> b) -> Lista a -> Lista b
+    Empty  <*> _     = Empty
+    _      <*> Empty = Empty 
+    H f fs <*> xs    = fmap f xs <++> (fs <*> xs)
+
+instance Monad Lista where
+    return :: a -> Lista a
+    return = pure
+
+    (>>=) :: Lista a -> (a -> Lista b) -> Lista b
+    Empty  >>= _ = Empty
+    H x xs >>= f = f x <++> (xs >>= f)
 
 x, y, z :: Lista Int
 x = H 4 (H 2 (H 0 (H 1 (H 20 (H 3 (H 7 Empty))))))
