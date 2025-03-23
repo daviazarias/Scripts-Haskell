@@ -10,12 +10,12 @@ instance Eq a => Eq (Lista a) where
     H x xs == H y ys = x == y && xs == ys
     
 (<:>) :: a -> Lista a -> Lista a
-x <:> xs  = H x xs
+(<:>) = H
 
 (<++>) :: Lista a -> Lista a -> Lista a
-xs     <++> Empty = xs
-H x xs <++> ys    = H x (xs <++> ys)
 Empty  <++> xs    = xs
+H x xs <++> ys    = H x (xs <++> ys)
+xs     <++> Empty = xs
 
 instance Show a => Show (Lista a) where
     show :: Lista a -> String
