@@ -11,11 +11,11 @@ instance Eq a => Eq (Lista a) where
     
 (<:>) :: a -> Lista a -> Lista a
 (<:>) = H
+infixr <:>
 
 (<++>) :: Lista a -> Lista a -> Lista a
-Empty  <++> xs    = xs
-H x xs <++> ys    = H x (xs <++> ys)
-xs     <++> Empty = xs
+Empty  <++> xs = xs
+H x xs <++> ys = H x (xs <++> ys)
 
 instance Show a => Show (Lista a) where
     show :: Lista a -> String
@@ -59,7 +59,26 @@ instance Monad Lista where
     Empty  >>= _ = Empty
     H x xs >>= f = f x <++> (xs >>= f)
 
+instance Foldable Lista where
+    foldMap :: Monoid m => (a -> m) -> Lista a -> m
+    foldMap _ Empty    = mempty
+    foldMap f (H x xs) = (f x) <> foldMap f xs
+
+    foldr :: (a -> b -> b) -> b -> Lista a -> b
+    foldr _ y Empty    = y
+    foldr f y (H x xs) = f x (foldr f y xs)
+
+    foldl :: (b -> a -> b) -> b -> Lista a -> b
+    foldl _ y Empty    = y
+    foldl f y (H x xs) = f (foldl f y xs) x
+
+foldToList :: Foldable t => t a -> [a]
+foldToList = foldMap (\x -> [x])
+
+listToH :: [a] -> Lista a
+listToH = foldMap (\x -> H x Empty)
+
 x, y, z :: Lista Int
-x = H 4 (H 2 (H 0 (H 1 (H 20 (H 3 (H 7 Empty))))))
-y = H 20 (H 13 (H 42 (H 7 (H 24 (H 20 (H 6 (H 1 Empty)))))))
-z = H 0 (H 2 (H (-7) Empty))
+x = 4 <:> 2 <:> 0 <:> 1 <:> 20 <:> 3 <:> 7 <:> Empty
+y = 20 <:> 13 <:> 42 <:> 7 <:> 24 <:> 20 <:> 6 <:> 1 <:> Empty
+z = 0 <:> 2 <:> (-7) <:> Empty

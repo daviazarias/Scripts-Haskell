@@ -11,7 +11,7 @@ Implementa o tipo "Data", que representa uma data no calendário gregoriano, ins
 Lê um número "n" da entrada padrão e exibe na saída padrão os n primeiros números da sequência de Fibonacci.
 
 # Listas.hs
-Implementa o tipo "Lista", buscando torná-lo parecido com as listas pré-definidas na linguagem Haskell. As classes instanciadas pelo tipo são: Eq, Show, Functor, Semigroup, Monoid, Applicative e Monad. 
+Implementa o tipo "Lista", buscando torná-lo parecido com as listas pré-definidas na linguagem Haskell. As classes instanciadas pelo tipo são: Eq, Show, Functor, Semigroup, Monoid, Foldable, Applicative e Monad. 
 
 # Testes.hs
 Miscelânea de algumas funções e operadores implementados para fins de teste.
